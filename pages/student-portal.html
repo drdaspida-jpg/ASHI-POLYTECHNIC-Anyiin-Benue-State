@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portal | Ashi Polytechnic</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand">
+        <img src="../assets/logo.png" alt="Ashi Polytechnic Logo" class="brand-logo">
+        <div class="brand-text">
+          <span class="brand-title">ASHI POLYTECHNIC</span>
+          <span class="brand-sub">Anyiin, Benue State</span>
+        </div>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle">Portals ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="student-login.html">Student</a></li>
+              <li><a href="applicant-login.html">Applicant</a></li>
+              <li><a href="staff-login.html">Administrative</a></li>
+            </ul>
+          </li>
+        </ul>
+        <a href="student-login.html" class="login-triangle">LOGIN</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="portal-page">
+    <section class="page-banner">
+      <div class="container">
+        <h1>Student Portal</h1>
+        <p class="breadcrumb"><a href="../index.html">Home</a> / Student Portal</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container portal-overview">
+        <aside class="portal-profile">
+          <div class="portal-profile-badge">Student</div>
+          <div class="portal-profile-name">Student Portal</div>
+          <div class="portal-profile-meta">Home / Dashboard</div>
+          <button class="btn logout-btn" type="button">Log out</button>
+        </aside>
+
+        <div class="portal-panel">
+          <span class="eyebrow">STUDENT SERVICES</span>
+          <h2>Welcome back, student</h2>
+          <p>Access your registration status, academic records, fee information, and updates from one clean dashboard.</p>
+
+          <div class="portal-actions">
+            <a href="verify-result.html" class="btn btn-primary">Check Result</a>
+            <a href="academics.html" class="btn btn-gold">View Courses</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="container portal-stats">
+        <div class="portal-stat">
+          <strong>12</strong>
+          <span>Courses</span>
+        </div>
+        <div class="portal-stat">
+          <strong>3.8</strong>
+          <span>CGPA</span>
+        </div>
+        <div class="portal-stat">
+          <strong>8</strong>
+          <span>Notifications</span>
+        </div>
+      </div>
+
+      <div class="container portal-grid">
+        <article class="portal-link-card">
+          <h3>Academic Record</h3>
+          <p>Review your semester results, progression summary, and course history.</p>
+          <a href="verify-result.html">Open</a>
+        </article>
+        <article class="portal-link-card">
+          <h3>Fees &amp; Payment</h3>
+          <p>Track tuition fees, payment deadlines, and financial obligations.</p>
+          <a href="admissions.html">Open</a>
+        </article>
+        <article class="portal-link-card">
+          <h3>Student Support</h3>
+          <p>Find counselling, academic guidance, and institutional assistance.</p>
+          <a href="contact.html">Open</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="brand-title">ASHI POLYTECHNIC</div>
+        <p>Technology for Empowerment, Development &amp; Self-Reliance.</p>
+        <p>Anyiin, Logo LGA, Benue State.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Portals</h4>
+        <ul>
+          <li><a href="student-login.html">Student Portal</a></li>
+          <li><a href="applicant-login.html">Applicant Portal</a></li>
+          <li><a href="staff-login.html">Staff Portal</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li>08020532524</li>
+          <li>info@ashipolytechnic.edu.ng</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container">&copy; <span id="year"></span> Ashi Polytechnic. All rights reserved.</div></div>
+  </footer>
+
+  <script src="../js/app.js" defer></script>
+  <script src="../js/navigation.js" defer></script>
+  <script src="../js/portal.js" defer></script>
+</body>
+</html>
