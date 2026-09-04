@@ -1,0 +1,13 @@
+name = "ashi-polytechnic-api"
+main = "src/worker.js"
+compatibility_date = "2026-09-04"
+
+[[r2_buckets]]
+binding = "DOCUMENTS_BUCKET"
+bucket_name = "ashi-polytechnic-documents"
+
+[vars]
+APP_NAME = "Ashi Polytechnic"
+SUPABASE_URL = "https://YOUR-PROJECT.supabase.co"
+
+# Put SUPABASE_SERVICE_ROLE_KEY in Cloudflare Worker Secrets, never in GitHub.

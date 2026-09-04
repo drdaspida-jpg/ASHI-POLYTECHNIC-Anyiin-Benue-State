@@ -1,19 +1,18 @@
-# Ashi Polytechnic Website
+# Ashi Polytechnic platform build — test branch
 
-Responsive multi-page website for Ashi Polytechnic, Anyiin, Logo LGA, Benue State.
+Branch: `platform-build-test`
 
-## Structure
+## Architecture
+- GitHub: source code
+- Cloudflare Worker: backend API
+- Cloudflare R2: PDF object storage
+- Supabase Auth: administrator/user authentication
+- Supabase PostgreSQL: students, staff, applicants, applications, results and document metadata
 
-- `index.html` - Homepage with image carousel and footer
-- `css/style.css` - Canonical stylesheet entry point
-- `css/responsive.css` - Mobile and tablet layout rules
-- `js/app.js` - Shared site behavior and hero carousel
-- `js/navigation.js` - Mobile navigation and active links
-- `js/forms.js` - Contact, admissions, and verification form validation
-- `js/portal.js` - Front-end demo portal login behavior
-- `pages/` - About, academics, admissions, news, contact, login, portals, and result verification
-- `assets/images/` - Images used by the site
-- `assets/icons/` - Small UI icons
-- `assets/documents/` - Downloadable documents
+## Documents flow
+Admin signs in → Documents → selects PDF → Worker authenticates admin → PDF is written to R2 → metadata is written to PostgreSQL → document appears in the Document Centre → public/authorized/admin access is enforced by the API.
 
-The portal and form workflows are front-end demos and require a backend before production use.
+## Before launch
+Create the Supabase and Cloudflare resources, run `backend/schema.sql`, create the R2 bucket, deploy the Worker with `wrangler.toml`, set Worker secrets, then put the public Supabase URL/key and Worker URL into the frontend configuration.
+
+Never put the Supabase service-role key in browser JavaScript or GitHub.

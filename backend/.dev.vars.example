@@ -1,0 +1,4 @@
+# Local/test environment example
+SUPABASE_URL=https://YOUR-PROJECT.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=replace-me
+R2_BUCKET=ashi-polytechnic-documents
