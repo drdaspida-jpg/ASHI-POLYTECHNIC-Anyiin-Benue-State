@@ -66,12 +66,16 @@
         phone: phone,
         programme: programme
       });
-      if (profileInsert.error) console.warn("Applicant profile will be completed after the database migration is applied.", profileInsert.error);
+      if (profileInsert.error) console.warn("Applicant profile could not be created yet.", profileInsert.error);
     }
 
-    statusBox(form, "Account created. Check your email to confirm your account, then log in.", "success");
+    statusBox(form, "Account created successfully. Redirecting you to the login page...", "success");
     form.reset();
     setBusy(form, false);
+
+    setTimeout(function () {
+      window.location.href = "applicant-login.html";
+    }, 1500);
   }
 
   async function login(form, destination, expectedType, supabase) {
