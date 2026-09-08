@@ -1,5 +1,5 @@
 -- Ashi Polytechnic portal backend foundation
--- Safe for the seven existing tables: only adds missing columns/indexes/policies.
+-- Safe to rerun: adds missing columns/indexes and recreates the required RLS policies.
 
 begin;
 
@@ -42,6 +42,20 @@ alter table public.students enable row level security;
 alter table public.staff enable row level security;
 alter table public.admin_users enable row level security;
 alter table public.results enable row level security;
+
+-- Drop existing versions so this migration can be safely rerun.
+drop policy if exists "Applicants can view their own record" on public.applicants;
+drop policy if exists "Applicants can create their own record" on public.applicants;
+drop policy if exists "Applicants can update their own record" on public.applicants;
+drop policy if exists "Applicants can view their applications" on public.applications;
+drop policy if exists "Applicants can create their applications" on public.applications;
+drop policy if exists "Applicants can view their documents" on public.documents;
+drop policy if exists "Applicants can create their documents" on public.documents;
+drop policy if exists "Students can view their record" on public.students;
+drop policy if exists "Staff can view their record" on public.staff;
+drop policy if exists "Admins can view their record" on public.admin_users;
+drop policy if exists "Students can view their results" on public.results;
+drop policy if exists "Public can view published results" on public.results;
 
 create policy "Applicants can view their own record"
 on public.applicants for select to authenticated
