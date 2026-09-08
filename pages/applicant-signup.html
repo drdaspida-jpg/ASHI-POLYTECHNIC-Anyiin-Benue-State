@@ -1,167 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Applicant Sign Up | Ashi Polytechnic</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/style.css"><link rel="stylesheet" href="../css/responsive.css">
 </head>
 <body class="portal-login-page">
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="../index.html" class="brand">
-        <img src="../assets/logo.png" alt="Ashi Polytechnic Logo" class="brand-logo">
-        <div class="brand-text">
-          <span class="brand-title">ASHI POLYTECHNIC</span>
-          <span class="brand-sub">Anyiin, Benue State</span>
-        </div>
-      </a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-      <nav class="main-nav" id="mainNav">
-        <ul>
-          <li><a href="../index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="academics.html">Academics</a></li>
-          <li><a href="admissions.html">Admissions</a></li>
-          <li><a href="news.html">News</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle">Portals ▾</a>
-            <ul class="dropdown-menu">
-              <li><a href="student-login.html">Student</a></li>
-              <li><a href="applicant-login.html">Applicant</a></li>
-              <li><a href="staff-login.html">Administrative</a></li>
-            </ul>
-          </li>
-        </ul>
-        <a href="applicant-login.html" class="login-triangle">LOGIN</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="page-banner">
-      <div class="container">
-        <h1>Applicant Sign Up</h1>
-        <p class="breadcrumb"><a href="../index.html">Home</a> / Applicant Sign Up</p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="portal-login-shell">
-          <div class="portal-login-brand">
-            <div class="portal-login-brand-top">
-              <div class="brand-logo-row">
-                <img src="../assets/logo.png" alt="Ashi Polytechnic Logo">
-                <span>ASHI POLYTECHNIC<br>Anyiin, Benue State</span>
-              </div>
-              <h1>Apply Today</h1>
-              <p class="portal-login-brand-copy">Create your applicant profile, upload your documents, and start your admission journey with Ashi Polytechnic.</p>
-            </div>
-            <div class="portal-login-switch">
-              <span>Already applied?</span>
-              <a href="applicant-login.html">Applicant login</a>
-              <a href="student-login.html">Student login</a>
-            </div>
-          </div>
-
-          <div class="portal-login-form-panel">
-            <p class="eyebrow">New applicant</p>
-            <h2>Create account</h2>
-            <p class="form-lede">Complete the form below to register for admission.</p>
-
-            <form class="portal-login-form active" id="applicantSignupForm" data-portal="applicant-signup">
-              <div class="portal-field">
-                <label for="applicant-signup-name">Full name</label>
-                <input id="applicant-signup-name" name="fullName" type="text" placeholder="Enter full name" required>
-              </div>
-              <div class="portal-field">
-                <label for="applicant-signup-email">Email address</label>
-                <input id="applicant-signup-email" name="email" type="email" placeholder="you@example.com" required>
-              </div>
-              <div class="portal-field">
-                <label for="applicant-signup-phone">Phone number</label>
-                <input id="applicant-signup-phone" name="phone" type="tel" placeholder="080xxxxxxxx" required>
-              </div>
-              <div class="portal-field">
-                <label for="applicant-signup-program">Intended programme</label>
-                <select id="applicant-signup-program" name="programme" required>
-                  <option value="">Select a programme</option>
-                  <option>Computer Science</option>
-                  <option>Business Administration</option>
-                  <option>Science Laboratory Technology</option>
-                  <option>Accountancy</option>
-                  <option>Mass Communication</option>
-                  <option>Public Administration</option>
-                </select>
-              </div>
-              <div class="portal-field">
-                <label for="applicant-signup-password">Password</label>
-                <div class="portal-password-wrap">
-                  <input id="applicant-signup-password" name="password" type="password" placeholder="Create password" required>
-                  <button class="portal-password-toggle" type="button" data-target="applicant-signup-password">Show</button>
-                </div>
-              </div>
-              <div class="portal-field">
-                <label for="applicant-signup-confirm">Confirm password</label>
-                <div class="portal-password-wrap">
-                  <input id="applicant-signup-confirm" name="confirmPassword" type="password" placeholder="Re-enter password" required>
-                  <button class="portal-password-toggle" type="button" data-target="applicant-signup-confirm">Show</button>
-                </div>
-              </div>
-              <button class="btn portal-login-submit" type="submit">Create account</button>
-              <div id="applicantSignupStatus" class="portal-form-status" aria-live="polite"></div>
-            </form>
-
-            <p class="portal-login-footnote">Already have an account? <a href="applicant-login.html">Log in here</a></p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div class="footer-col">
-        <div class="brand-title">ASHI POLYTECHNIC</div>
-        <p>Technology for Empowerment, Development &amp; Self-Reliance.</p>
-        <p>Anyiin, Logo LGA, Benue State.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Resources</h4>
-        <ul>
-          <li><a href="about.html">About</a></li>
-          <li><a href="academics.html">Academics</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Portals</h4>
-        <ul>
-          <li><a href="student-login.html">Student Portal</a></li>
-          <li><a href="applicant-login.html">Applicant Portal</a></li>
-          <li><a href="staff-login.html">Staff Portal</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <ul>
-          <li>08020532524</li>
-          <li>info@ashipolytechnic.edu.ng</li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="container">&copy; <span id="year"></span> Ashi Polytechnic. All rights reserved.</div>
-    </div>
-  </footer>
-
-  <script src="../js/app.js" defer></script>
-  <script src="../js/navigation.js" defer></script>
-  <script src="../js/portal.js" defer></script>
-</body>
-</html>
+<header class="site-header"><div class="container header-inner"><a href="../index.html" class="brand"><img src="../assets/logo.png" alt="Ashi Polytechnic Logo" class="brand-logo"><div class="brand-text"><span class="brand-title">ASHI POLYTECHNIC</span><span class="brand-sub">Anyiin, Benue State</span></div></a><button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button><nav class="main-nav" id="mainNav"><ul><li><a href="../index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="academics.html">Academics</a></li><li><a href="admissions.html">Admissions</a></li><li><a href="news.html">News</a></li><li><a href="contact.html">Contact</a></li><li class="dropdown"><a href="#" class="dropdown-toggle">Portals ▾</a><ul class="dropdown-menu"><li><a href="student-login.html">Student</a></li><li><a href="applicant-login.html">Applicant</a></li><li><a href="staff-login.html">Administrative</a></li></ul></li></ul><a href="applicant-login.html" class="login-triangle">LOGIN</a></nav></div></header>
+<main><section class="page-banner"><div class="container"><h1>Applicant Sign Up</h1><p class="breadcrumb"><a href="../index.html">Home</a> / Applicant Sign Up</p></div></section><section class="section"><div class="container"><div class="portal-login-shell">
+<div class="portal-login-brand"><div class="portal-login-brand-top"><div class="brand-logo-row"><img src="../assets/logo.png" alt="Ashi Polytechnic Logo"><span>ASHI POLYTECHNIC<br>Anyiin, Benue State</span></div><h1>Apply Today</h1><p class="portal-login-brand-copy">Create your applicant profile, upload your documents, and start your admission journey with Ashi Polytechnic.</p></div><div class="portal-login-switch"><span>Already applied?</span><a href="applicant-login.html">Applicant login</a><a href="student-login.html">Student login</a></div></div>
+<div class="portal-login-form-panel"><p class="eyebrow">New applicant</p><h2>Create account</h2><p class="form-lede">Complete the form below to register for admission.</p>
+<form class="portal-login-form active" id="applicantSignupForm" data-portal="applicant-signup">
+<div class="portal-field"><label for="applicant-signup-name">Full name</label><input id="applicant-signup-name" name="fullName" type="text" placeholder="Enter full name" required></div>
+<div class="portal-field"><label for="applicant-signup-email">Email address</label><input id="applicant-signup-email" name="email" type="email" placeholder="you@example.com" required></div>
+<div class="portal-field"><label for="applicant-signup-phone">Phone number</label><input id="applicant-signup-phone" name="phone" type="tel" placeholder="080xxxxxxxx" required></div>
+<div class="portal-field"><label for="applicant-signup-program">Intended programme</label><select id="applicant-signup-program" name="programme" required><option value="">Select a programme</option><option>Computer Science</option><option>Business Administration</option><option>Science Laboratory Technology</option><option>Accountancy</option><option>Mass Communication</option><option>Public Administration</option></select></div>
+<div class="portal-field"><label for="applicant-signup-password">Password</label><div class="portal-password-wrap"><input id="applicant-signup-password" name="password" type="password" placeholder="Create password (8+ characters)" minlength="8" required><button class="portal-password-toggle" type="button" data-target="applicant-signup-password">Show</button></div></div>
+<div class="portal-field"><label for="applicant-signup-confirm">Confirm password</label><div class="portal-password-wrap"><input id="applicant-signup-confirm" name="confirmPassword" type="password" placeholder="Re-enter password" required><button class="portal-password-toggle" type="button" data-target="applicant-signup-confirm">Show</button></div></div>
+<button class="btn portal-login-submit" type="submit">Create account</button><div id="applicantSignupStatus" class="portal-form-status" aria-live="polite"></div>
+</form><p class="portal-login-footnote">Already have an account? <a href="applicant-login.html">Log in here</a></p></div>
+</div></div></section></main>
+<footer class="site-footer"><div class="container footer-grid"><div class="footer-col"><div class="brand-title">ASHI POLYTECHNIC</div><p>Technology for Empowerment, Development &amp; Self-Reliance.</p><p>Anyiin, Logo LGA, Benue State.</p></div><div class="footer-col"><h4>Resources</h4><ul><li><a href="about.html">About</a></li><li><a href="academics.html">Academics</a></li><li><a href="contact.html">Contact</a></li></ul></div><div class="footer-col"><h4>Portals</h4><ul><li><a href="student-login.html">Student Portal</a></li><li><a href="applicant-login.html">Applicant Portal</a></li><li><a href="staff-login.html">Staff Portal</a></li></ul></div><div class="footer-col"><h4>Contact</h4><ul><li>08020532524</li><li>info@ashipolytechnic.edu.ng</li></ul></div></div><div class="footer-bottom"><div class="container">&copy; <span id="year"></span> Ashi Polytechnic. All rights reserved.</div></div></footer>
+<script src="../js/app.js" defer></script><script src="../js/navigation.js" defer></script><script src="../js/supabase-config.js" defer></script><script src="../js/supabase-loader.js" defer></script><script src="../js/portal.js" defer></script><script src="../js/auth.js" defer></script>
+</body></html>
