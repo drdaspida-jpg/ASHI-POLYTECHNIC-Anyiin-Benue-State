@@ -1,4 +1,4 @@
-/* Ashi Polytechnic — real Supabase authentication */
+/* Ashi Polytechnic — Supabase authentication */
 (function () {
   function waitForSupabase(callback) {
     if (window.ashiSupabase) return callback(window.ashiSupabase);
@@ -24,82 +24,123 @@
     return message;
   }
 
-  function signupApplicant(form) {
-    waitForSupabase(async function (supabase) {
-      var name = form.querySelector('[name="fullName"]').value.trim();
-      var email = form.querySelector('[name="email"]').value.trim().toLowerCase();
-      var phone = form.querySelector('[name="phone"]').value.trim();
-      var programme = form.querySelector('[name="programme"]').value.trim();
-      var password = form.querySelector('[name="password"]').value;
-      var confirm = form.querySelector('[name="confirmPassword"]').value;
-
-      if (!name || !email || !phone || !programme || password.length < 8 || password !== confirm) {
-        statusBox(form, password.length < 8 ? "Password must be at least 8 characters." : "Please complete all fields correctly and make sure the passwords match.", "error");
-        return;
-      }
-
-      var button = form.querySelector('button[type="submit"]');
-      if (button) { button.disabled = true; button.textContent = "Creating account..."; }
-
-      var result = await supabase.auth.signUp({
-        email: email,
-        password: password,
-        options: {
-          data: {
-            full_name: name,
-            phone: phone,
-            programme: programme,
-            account_type: "applicant"
-          }
-        }
-      });
-
-      if (result.error) {
-        statusBox(form, friendlyError(result.error), "error");
-        if (button) { button.disabled = false; button.textContent = "Create account"; }
-        return;
-      }
-
-      statusBox(form, "Account created. Check your email to confirm your account, then log in.", "success");
-      form.reset();
-      if (button) { button.disabled = false; button.textContent = "Create account"; }
-    });
+  function setBusy(form, busy, text) {
+    var button = form && form.querySelector('button[type="submit"]');
+    if (!button) return;
+    button.disabled = busy;
+    if (busy) {
+      button.dataset.originalText = button.textContent;
+      button.textContent = text || "Please wait...";
+    } else {
+      button.textContent = button.dataset.originalText || "Submit";
+    }
   }
 
-  function login(form, destination) {
-    waitForSupabase(async function (supabase) {
-      var email = form.querySelector('[name="loginId"]').value.trim().toLowerCase();
-      var password = form.querySelector('[name="password"]').value;
-      if (!email || !password) {
-        statusBox(form, "Please enter both your email and password.", "error");
-        return;
+  async function signupApplicant(form, supabase) {
+    var name = form.querySelector('[name="fullName"]').value.trim();
+    var email = form.querySelector('[name="email"]').value.trim().toLowerCase();
+    var phone = form.querySelector('[name="phone"]').value.trim();
+    var programme = form.querySelector('[name="programme"]').value.trim();
+    var password = form.querySelector('[name="password"]').value;
+    var confirm = form.querySelector('[name="confirmPassword"]').value;
+
+    if (!name || !email || !phone || !programme || password.length < 8 || password !== confirm) {
+      statusBox(form, password.length < 8 ? "Password must be at least 8 characters." : "Please complete all fields correctly and make sure the passwords match.", "error");
+      return;
+    }
+
+    setBusy(form, true, "Creating account...");
+    var result = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          full_name: name,
+          phone: phone,
+          programme: programme,
+          account_type: "applicant"
+        }
       }
-
-      var button = form.querySelector('button[type="submit"]');
-      if (button) { button.disabled = true; button.textContent = "Signing in..."; }
-
-      var result = await supabase.auth.signInWithPassword({ email: email, password: password });
-      if (result.error) {
-        statusBox(form, friendlyError(result.error), "error");
-        if (button) { button.disabled = false; button.textContent = "Log in"; }
-        return;
-      }
-
-      window.location.href = destination;
     });
+
+    if (result.error) {
+      statusBox(form, friendlyError(result.error), "error");
+      setBusy(form, false);
+      return;
+    }
+
+    statusBox(form, "Account created. Check your email to confirm your account, then log in.", "success");
+    form.reset();
+    setBusy(form, false);
+  }
+
+  async function login(form, destination, expectedType, supabase) {
+    var email = form.querySelector('[name="loginId"]').value.trim().toLowerCase();
+    var password = form.querySelector('[name="password"]').value;
+    if (!email || !password) {
+      statusBox(form, "Please enter both your email and password.", "error");
+      return;
+    }
+
+    setBusy(form, true, "Signing in...");
+    var result = await supabase.auth.signInWithPassword({ email: email, password: password });
+    if (result.error) {
+      statusBox(form, friendlyError(result.error), "error");
+      setBusy(form, false);
+      return;
+    }
+
+    var user = result.data && result.data.user;
+    var accountType = user && user.user_metadata ? user.user_metadata.account_type : null;
+
+    if (expectedType && accountType && accountType !== expectedType) {
+      await supabase.auth.signOut();
+      statusBox(form, "This account is not registered for the " + expectedType + " portal.", "error");
+      setBusy(form, false);
+      return;
+    }
+
+    window.location.href = destination;
   }
 
   document.addEventListener("DOMContentLoaded", function () {
     var applicantSignup = document.getElementById("applicantSignupForm");
-    if (applicantSignup) applicantSignup.addEventListener("submit", function (e) {
-      e.preventDefault();
-      signupApplicant(applicantSignup);
-    });
-
     var applicantLogin = document.getElementById("applicantLoginForm");
-    if (applicantLogin) applicantLogin.addEventListener("submit", function (e) {
-      e.preventDefault();
-      login(applicantLogin, "applicant-portal.html");
+    var studentLogin = document.getElementById("studentLoginForm");
+    var staffLogin = document.getElementById("staffLoginForm");
+
+    waitForSupabase(function (supabase) {
+      if (applicantSignup) applicantSignup.addEventListener("submit", function (e) {
+        e.preventDefault();
+        signupApplicant(applicantSignup, supabase).catch(function (error) {
+          statusBox(applicantSignup, friendlyError(error), "error");
+          setBusy(applicantSignup, false);
+        });
+      });
+
+      if (applicantLogin) applicantLogin.addEventListener("submit", function (e) {
+        e.preventDefault();
+        login(applicantLogin, "applicant-portal.html", "applicant", supabase).catch(function (error) {
+          statusBox(applicantLogin, friendlyError(error), "error");
+          setBusy(applicantLogin, false);
+        });
+      });
+
+      if (studentLogin) studentLogin.addEventListener("submit", function (e) {
+        e.preventDefault();
+        login(studentLogin, "student-portal.html", "student", supabase).catch(function (error) {
+          statusBox(studentLogin, friendlyError(error), "error");
+          setBusy(studentLogin, false);
+        });
+      });
+
+      if (staffLogin) staffLogin.addEventListener("submit", function (e) {
+        e.preventDefault();
+        login(staffLogin, "staff-portal.html", "staff", supabase).catch(function (error) {
+          statusBox(staffLogin, friendlyError(error), "error");
+          setBusy(staffLogin, false);
+        });
+      });
     });
   });
 })();
