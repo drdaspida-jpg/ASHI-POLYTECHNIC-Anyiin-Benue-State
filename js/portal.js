@@ -83,17 +83,29 @@
     });
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
-    var params = new URLSearchParams(window.location.search);
-    var selectedPortal = params.get("portal");
+  function setupLoginFormSwitcher() {
+    // Only run the login-form switcher on pages that actually contain login forms.
+    // Applicant sign-up also uses .portal-login-form, so blindly applying the old
+    // default (studentLoginForm) was hiding the entire sign-up form.
     var portalMap = {
       student: "studentLoginForm",
       applicant: "applicantLoginForm",
       staff: "staffLoginForm"
     };
-
     var allForms = document.querySelectorAll(".portal-login-form");
-    var activePortal = selectedPortal && portalMap[selectedPortal] ? portalMap[selectedPortal] : "studentLoginForm";
+    if (!allForms.length || !document.getElementById("studentLoginForm") &&
+        !document.getElementById("applicantLoginForm") && !document.getElementById("staffLoginForm")) {
+      return;
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var selectedPortal = params.get("portal");
+    var activePortal = selectedPortal && portalMap[selectedPortal]
+      ? portalMap[selectedPortal]
+      : (document.getElementById("studentLoginForm") ? "studentLoginForm" : null);
+
+    if (!activePortal) return;
+
     allForms.forEach(function (form) {
       form.classList.toggle("active", form.id === activePortal);
     });
@@ -104,6 +116,10 @@
       var firstInput = selectedForm.querySelector("input");
       if (firstInput) firstInput.focus();
     }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    setupLoginFormSwitcher();
 
     document.querySelectorAll(".portal-password-toggle").forEach(function (button) {
       button.addEventListener("click", function () {
