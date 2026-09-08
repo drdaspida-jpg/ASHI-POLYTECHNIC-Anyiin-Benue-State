@@ -2,9 +2,7 @@
 (function () {
   function waitForSupabase(callback) {
     if (window.ashiSupabase) return callback(window.ashiSupabase);
-    window.addEventListener("ashi:supabase-ready", function () {
-      callback(window.ashiSupabase);
-    }, { once: true });
+    window.addEventListener("ashi:supabase-ready", function () { callback(window.ashiSupabase); }, { once: true });
   }
 
   function statusBox(form, message, type) {
@@ -31,9 +29,7 @@
     if (busy) {
       button.dataset.originalText = button.textContent;
       button.textContent = text || "Please wait...";
-    } else {
-      button.textContent = button.dataset.originalText || "Submit";
-    }
+    } else button.textContent = button.dataset.originalText || "Submit";
   }
 
   async function signupApplicant(form, supabase) {
@@ -53,20 +49,24 @@
     var result = await supabase.auth.signUp({
       email: email,
       password: password,
-      options: {
-        data: {
-          full_name: name,
-          phone: phone,
-          programme: programme,
-          account_type: "applicant"
-        }
-      }
+      options: { data: { full_name: name, phone: phone, programme: programme, account_type: "applicant" } }
     });
 
     if (result.error) {
       statusBox(form, friendlyError(result.error), "error");
       setBusy(form, false);
       return;
+    }
+
+    if (result.data && result.data.user) {
+      var profileInsert = await supabase.from("applicants").insert({
+        auth_user_id: result.data.user.id,
+        full_name: name,
+        email: email,
+        phone: phone,
+        programme: programme
+      });
+      if (profileInsert.error) console.warn("Applicant profile will be completed after the database migration is applied.", profileInsert.error);
     }
 
     statusBox(form, "Account created. Check your email to confirm your account, then log in.", "success");
@@ -92,14 +92,12 @@
 
     var user = result.data && result.data.user;
     var accountType = user && user.user_metadata ? user.user_metadata.account_type : null;
-
     if (expectedType && accountType && accountType !== expectedType) {
       await supabase.auth.signOut();
       statusBox(form, "This account is not registered for the " + expectedType + " portal.", "error");
       setBusy(form, false);
       return;
     }
-
     window.location.href = destination;
   }
 
@@ -112,34 +110,19 @@
     waitForSupabase(function (supabase) {
       if (applicantSignup) applicantSignup.addEventListener("submit", function (e) {
         e.preventDefault();
-        signupApplicant(applicantSignup, supabase).catch(function (error) {
-          statusBox(applicantSignup, friendlyError(error), "error");
-          setBusy(applicantSignup, false);
-        });
+        signupApplicant(applicantSignup, supabase).catch(function (error) { statusBox(applicantSignup, friendlyError(error), "error"); setBusy(applicantSignup, false); });
       });
-
       if (applicantLogin) applicantLogin.addEventListener("submit", function (e) {
         e.preventDefault();
-        login(applicantLogin, "applicant-portal.html", "applicant", supabase).catch(function (error) {
-          statusBox(applicantLogin, friendlyError(error), "error");
-          setBusy(applicantLogin, false);
-        });
+        login(applicantLogin, "applicant-portal.html", "applicant", supabase).catch(function (error) { statusBox(applicantLogin, friendlyError(error), "error"); setBusy(applicantLogin, false); });
       });
-
       if (studentLogin) studentLogin.addEventListener("submit", function (e) {
         e.preventDefault();
-        login(studentLogin, "student-portal.html", "student", supabase).catch(function (error) {
-          statusBox(studentLogin, friendlyError(error), "error");
-          setBusy(studentLogin, false);
-        });
+        login(studentLogin, "student-portal.html", "student", supabase).catch(function (error) { statusBox(studentLogin, friendlyError(error), "error"); setBusy(studentLogin, false); });
       });
-
       if (staffLogin) staffLogin.addEventListener("submit", function (e) {
         e.preventDefault();
-        login(staffLogin, "staff-portal.html", "staff", supabase).catch(function (error) {
-          statusBox(staffLogin, friendlyError(error), "error");
-          setBusy(staffLogin, false);
-        });
+        login(staffLogin, "staff-portal.html", "staff", supabase).catch(function (error) { statusBox(staffLogin, friendlyError(error), "error"); setBusy(staffLogin, false); });
       });
     });
   });
