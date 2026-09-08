@@ -1,14 +1,11 @@
 /* Ashi Polytechnic — Supabase client configuration
  *
- * ONLY the public Supabase project URL and anon/publishable key belong here.
- * NEVER put the Supabase service_role/secret key in this file or anywhere in
- * the browser-facing repository.
- *
- * Replace the two placeholders after creating the Supabase project.
+ * This file contains ONLY the public Supabase project URL and
+ * publishable/anon key. Never put a Supabase secret/service_role key here.
  */
 window.ASHI_SUPABASE_CONFIG = {
-  url: "YOUR_SUPABASE_PROJECT_URL",
-  anonKey: "YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY"
+  url: "https://fqfnmnllhsnwykczitlv.supabase.co",
+  anonKey: "sb_publishable_c1AdU7H1q5UG0CzPxZZlhg_6V4yjifP"
 };
 
 window.ashiSupabaseReady = function () {
@@ -16,8 +13,6 @@ window.ashiSupabaseReady = function () {
     window.supabase &&
     window.ASHI_SUPABASE_CONFIG &&
     window.ASHI_SUPABASE_CONFIG.url &&
-    window.ASHI_SUPABASE_CONFIG.anonKey &&
-    !window.ASHI_SUPABASE_CONFIG.url.includes("YOUR_") &&
-    !window.ASHI_SUPABASE_CONFIG.anonKey.includes("YOUR_")
+    window.ASHI_SUPABASE_CONFIG.anonKey
   );
 };
